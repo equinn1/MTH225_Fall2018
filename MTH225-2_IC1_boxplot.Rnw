@@ -1,0 +1,28 @@
+\documentclass{article}
+
+\begin{document}
+MTH225 Week 2 In-class exercise 1: Boxplots
+
+The purpose of this exercise is to make sure the software environment required for this course is functioning, and to introduce the R statistical system
+
+Read the .csv file with the data.  Note that this format for the filename assumes it is in the current working directory, as only the file name is specified with no path information:
+<<>>=
+df = read.csv("lognormal_boxplot.csv")
+@
+Display the structure of the resulting dataframe.  This will tell us the number of rows and columns in the data, and the column names.  If the file did not contain column names, R will create them and we will need to know what names it created.
+<<>>=
+str(df)
+@
+Now we can do the boxplot:
+<<>>=
+boxplot(df$y2)
+@
+As we will discover, some data has a strong "skew" to the right and produces a boxplot of this type.  Typically we want the data to be a bit more symmetrical.
+
+If you have all positive values, the most common way to adjust the data is with a log transform:
+<<>>=
+logy2 = log(df$y2)
+
+boxplot(logy2)
+@
+\end{document}
