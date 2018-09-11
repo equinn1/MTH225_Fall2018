@@ -1,0 +1,73 @@
+\documentclass{article}
+
+\begin{document}
+In-class exercise: The Poisson distribution
+\section*{Introduction - The Poisson Distribution}
+The Poissoin distribution results from increasing the number of trials $n$ in the binomial experiment while keeping the mean $n\theta$ constant.
+\par\vspace{0.4 cm}
+That constant is the single parameter of the Poisson distribution and is usually denoted by the Greek letter $\lambda$.
+\par\vspace{0.4 cm}
+A Poisson random variable can assume any nonnegative integer value:
+\par\vspace{0.4 cm}
+\[
+X\in\{0,1,2,\ldots\}
+\]
+\par\vspace{0.4 cm}
+There is a relatively simple expression for the probability of each of these outcomes:
+\[
+P(X=k) = \frac{\lambda^ke^{-\lambda}}{k!}\quad k=0,1,2,\ldots
+\vspace{0.4 cm}
+\]
+We'll just use R to compute these values so we won't need to work with this formula directly.
+\section*{Generating Poisson Random Variables}
+R provides built-in functions to generate most common probability distributions.
+\par\vspace{0.4 cm}
+The code to generate a vector of 50 independent Poisson random variables with parameter $\lambda=4$ is:
+\par\vspace{0.4 cm}
+\texttt{x = rpois(50,4)}
+\par\vspace{0.4 cm}
+<<>>=
+x = rpois(50,4)
+
+x
+@
+\par\vspace{0.4 cm}
+\section*{Exploring the Properties of the Sample}
+We can generate a histogram showing the values of $x$ to get an idea of the shape of the distribution:
+<<>>=
+hist(x)
+@
+\par\vspace{0.4 cm}
+We can compute the sample mean of the $x$ values (this should be close to $\theta$):
+<<>>=
+mean(x)
+@
+\par\vspace{0.4 cm}
+The sample mean is a measure of \textbf{location}.  It tells us where the distribution is "centered".
+\par\vspace{0.4 cm}
+Another measure of location is the median, which is defined as the observation hafway through the list if we order the sample by increasing values of $x$.
+\par\vspace{0.4 cm}
+<<>>=
+median(x)
+@
+\par\vspace{0.4 cm}
+We are also interested in how relatively spread out or clustered together values are near the mean.  This is called \textbf{dispersion}.  
+\par\vspace{0.4 cm}
+One common measure of dispersion is the standard deviation:
+<<>>=
+sd(x)
+@
+\par\vspace{0.4 cm}
+Another common dispersion measure is the variance, which is the square of the standard deviation:
+<<>>=
+var(x)
+@
+Sometimes it is more convenient to use the standard deviation, and sometimes it is easier to use the variance.  Both are common measures of dispersion.
+\par\vspace{0.4 cm}
+For a Poisson distribution the sample mean should be close to $\lambda$ and the variance should be close to $\lambda$.
+\par\vspace{0.4 cm}
+Is that the case with your simulated data?
+\par\vspace{0.4 cm}
+(type your response here)
+
+\end{document}

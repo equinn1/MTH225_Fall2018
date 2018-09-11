@@ -1,0 +1,72 @@
+\documentclass{article}
+
+\begin{document}
+In-class exercise: The exponential distribution
+\section*{Introduction - The Exponential Distribution}
+It has long been known that if a large group of people independently and randomly generate requests for some service (like a website), the Poisson distribution will be a good model for the number of arrivals per unit of time.  In that situation, the time between arrivals will have an exponential distribution.
+\par\vspace{0.4 cm}
+The exponential distribution has a single parameter $\mu$.
+\par\vspace{0.4 cm}
+An exponential random variable can assume any positive real value:
+\par\vspace{0.4 cm}
+\[
+X\in(0,\infty)\}
+\]
+\par\vspace{0.4 cm}
+There is a relatively simple expression for the probability of each of these outcomes:
+\[
+P(X=x) = \mu e^{-\mu x}\quad x>0
+\vspace{0.4 cm}
+\]
+We'll just use R to compute these values so we won't need to work with this formula directly.
+\section*{Generating exponential Random Variables}
+R provides built-in functions to generate most common probability distributions.
+\par\vspace{0.4 cm}
+The code to generate a vector of 50 independent exponential random variables with parameter $\mu=1$ is:
+\par\vspace{0.4 cm}
+\texttt{x = rexp(50,1)}
+\par\vspace{0.4 cm}
+<<>>=
+x = rexp(50,1)
+
+x
+@
+\par\vspace{0.4 cm}
+\section*{Exploring the Properties of the Sample}
+We can generate a histogram showing the values of $x$ to get an idea of the shape of the distribution:
+<<>>=
+hist(x)
+@
+\par\vspace{0.4 cm}
+We can compute the sample mean of the $x$ values (this should be close to $\theta$):
+<<>>=
+mean(x)
+@
+\par\vspace{0.4 cm}
+The sample mean is a measure of \textbf{location}.  It tells us where the distribution is "centered".
+\par\vspace{0.4 cm}
+Another measure of location is the median, which is defined as the observation hafway through the list if we order the sample by increasing values of $x$.
+\par\vspace{0.4 cm}
+<<>>=
+median(x)
+@
+\par\vspace{0.4 cm}
+We are also interested in how relatively spread out or clustered together values are near the mean.  This is called \textbf{dispersion}.  
+\par\vspace{0.4 cm}
+One common measure of dispersion is the standard deviation:
+<<>>=
+sd(x)
+@
+\par\vspace{0.4 cm}
+Another common dispersion measure is the variance, which is the square of the standard deviation:
+<<>>=
+var(x)
+@
+\par\vspace{0.4 cm}
+For an exponential distribution the sample mean should be close to $1/\mu$ and the variance should be close to $1/\mu^2$.
+\par\vspace{0.4 cm}
+Is that the case with your simulated data?
+\par\vspace{0.4 cm}
+(type your response here)
+
+\end{document}

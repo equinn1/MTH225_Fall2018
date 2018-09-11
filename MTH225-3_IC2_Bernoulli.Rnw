@@ -1,0 +1,108 @@
+\documentclass{article}
+
+\begin{document}
+In-class exercise: The Bernoulli distribution
+\section*{Introduction - The Bernoulli Distribution}
+The Bernoulli distribution results from a probability experiment with two possible outcomes:
+\begin{itemize}
+\item success
+\item failure
+\end{itemize}
+\par\vspace{0.4 cm}
+The familiar coin toss experiment is a special case of the probability experiment that produces a Bernoulli distribution.  In this case we label the two outcomes "heads" and "tails" rather than "success" and "failure".
+\par\vspace{0.4 cm}
+In general the sample space of the Bernoulli experiment is:
+\[
+\Omega = \{success,failure\}
+\]
+
+\par\vspace{0.4 cm}
+The random variable $X$ associated with this experiment is usually defined as:
+\[
+X = \left\{\begin{array}{lcl} 1 &\mbox{if:}& \mbox{the outcome is "success"}\\
+0 &\mbox{if:}& \mbox{the outcome is "failure"}\end{array}\right.
+\vspace{0.4 cm}
+\]
+\par\vspace{0.4 cm}
+In the coin toss variation of this experiment, the outcomes "heads" and "tails" are usually assumed to have the same probability, 1/2.
+\par\vspace{0.4 cm}
+More generally, the probability of "success" is a number between zero and one, which we can think of as a \textbf{parameter} that indexes a family of probability distributions.
+\par\vspace{0.4 cm}
+Most probability distributions have at least one parameter.  Much of statistics involves trying to estimate the value(s) of parameters and evaluate the plausibility of logical statements about parameters.
+\par\vspace{0.4 cm}
+We will use the symbol $\theta$ to denote the value of the parameter, and consider it to be the probability of the outcome "success".
+\par\vspace{0.4 cm}
+This guarantees that the probability of the only other outcome, "failure", is $1-\theta$.
+\par\vspace{0.4 cm}
+Then the probabilities associated with the values of our random variable $X$ are:
+\[
+P(X) = \left\{\begin{array}{lcl} 
+\theta &\mbox{if:}& X=1\\
+1-\theta &\mbox{if:}& X=0\end{array}\right.
+\vspace{0.4 cm}
+\]
+In the coin toss variant, $\theta = 1/2$.
+\section*{Generating Bernoulli Random Variables}
+R provides built-in functions to generate most common probability distributions.
+\par\vspace{0.4 cm}
+The Bernoulli distribution is a special case of a more general probability distribution called the binomial, so R uses the binomial routine to produce Bernoulli random variables.
+\par\vspace{0.4 cm}
+The code to generate a vector of 50 independent Bernoulli random variables with probability of success $0.4$ is:
+\par\vspace{0.4 cm}
+\texttt{x = rbinom(50,1,0.4)}
+\par\vspace{0.4 cm}
+<<>>=
+x = rbinom(51,1,0.4)
+
+x
+@
+\par\vspace{0.4 cm}
+\section*{Exploring the Properties of the Sample}
+We can generate a histogram showing the values of $x$ to get an idea of the shape of the distribution:
+<<>>=
+hist(x)
+@
+\par\vspace{0.4 cm}
+We can compute the sample mean of the $x$ values (this should be close to $\theta$):
+<<>>=
+mean(x)
+@
+\par\vspace{0.4 cm}
+The sample mean is a measure of \textbf{location}.  It tells us where the distribution is "centered".
+\par\vspace{0.4 cm}
+Another measure of location is the median, which is defined as the observation hafway through the list if we order the sample by increasing values of $x$.
+\par\vspace{0.4 cm}
+The median behaves better with skewed distributions because it is not sensitive to extreme values.  The medians of the samples
+\[
+\{1,2,3\}\quad\mbox{and}\quad\{1,2,40156\}\quad\mbox{are both}\quad 2
+\]
+<<>>=
+median(x)
+@
+\par\vspace{0.4 cm}
+In this case the sample has 51 observations and the median is the $26^{th}$ entry in the ordered list of values.  With an odd number of elements in the sample, the median will always be one of the values in the sample.
+\par\vspace{0.4 cm}
+A quirky feature of the median is that if the sample has an even number of observations, the exact middle falls between two observations.  In this case, the average of those is usually used.
+\par\vspace{0.4 cm}
+This can produce values that are not actually in the sample for the median.  If one of the two values closest to the middle is zero and the other is one, the median will be computed as 1/2, which never occurs in a sample from the Bernoulli distribution. 
+\par\vspace{0.4 cm}
+We are also interested in how relatively spread out or clustered together values are near the mean.  This is called \textbf{dispersion}.  
+\par\vspace{0.4 cm}
+One common measure of dispersion is the standard deviation:
+<<>>=
+sd(x)
+@
+\par\vspace{0.4 cm}
+Another common dispersion measure is the variance, which is the square of the standard deviation:
+<<>>=
+var(x)
+@
+Sometimes it is more convenient to use the standard deviation, and sometimes it is easier to use the variance.  Both are common measures of dispersion.
+\par\vspace{0.4 cm}
+For a Bernoulli distribution, even though any value between zero and one is possible, the sample mean should be close to $\theta$ and the variance should be close to $\theta\cdot(1-\theta)$.
+\par\vspace{0.4 cm}
+Is that the case with your simulated data?
+\par\vspace{0.4 cm}
+(type your response here)
+
+\end{document}

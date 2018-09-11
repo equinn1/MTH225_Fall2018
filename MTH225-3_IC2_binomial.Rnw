@@ -1,0 +1,82 @@
+\documentclass{article}
+
+\begin{document}
+In-class exercise: The binomial distribution
+\section*{Introduction - The Binomial Distribution}
+The binomial distribution results from repeating the Bernoulli experiment some fixed number of times and counting the number of successes.
+\par\vspace{0.4 cm}
+There is an assumption that the probability of success $\theta$ is the same in every trial, and that the trials are independent of each other.
+\par\vspace{0.4 cm}
+The independence condition means that the outcome of one trial has no effect on the other trials.
+\par\vspace{0.4 cm}
+The binomial distribution has two parameters, $n$ and $\theta$.
+\par\vspace{0.4 cm}
+$n$ is the number of independent Bernoulli trials performed, and $\theta$ is the probability of "success" in each of them.
+\par\vspace{0.4 cm}
+The random variable associated with the binomial experiment is the total number of successes, and can take any value between $0$ and $n$, inclusive:
+\[
+X\in\{0,1,2,\ldots,n\}
+\]
+\par\vspace{0.4 cm}
+There is a relatively simple (by probability distribution standards) expression for the probability of each of these outcomes:
+\[
+P(X=k) = {{n}\choose{k}}\theta^k(1-\theta)^{n-k}\quad k=0,1,2,\ldots,n
+\vspace{0.4 cm}
+\]
+We'll just use R to compute these values so we won't need to work with this formula directly.
+\section*{Generating Binomial Random Variables}
+R provides built-in functions to generate most common probability distributions.
+\par\vspace{0.4 cm}
+The code to generate a vector of 50 independent binomial random variables $n=10$ trials with probability of success $0.4$ is:
+\par\vspace{0.4 cm}
+\texttt{x = rbinom(50,10,0.4)}
+\par\vspace{0.4 cm}
+<<>>=
+x = rbinom(50,10,0.4)
+
+x
+@
+\par\vspace{0.4 cm}
+\section*{Exploring the Properties of the Sample}
+We can generate a histogram showing the values of $x$ to get an idea of the shape of the distribution:
+<<>>=
+hist(x)
+@
+\par\vspace{0.4 cm}
+We can compute the sample mean of the $x$ values (this should be close to $\theta$):
+<<>>=
+mean(x)
+@
+\par\vspace{0.4 cm}
+The sample mean is a measure of \textbf{location}.  It tells us where the distribution is "centered".
+\par\vspace{0.4 cm}
+Another measure of location is the median, which is defined as the observation hafway through the list if we order the sample by increasing values of $x$.
+\par\vspace{0.4 cm}
+<<>>=
+median(x)
+@
+\par\vspace{0.4 cm}
+We are also interested in how relatively spread out or clustered together values are near the mean.  This is called \textbf{dispersion}.  
+\par\vspace{0.4 cm}
+One common measure of dispersion is the standard deviation:
+<<>>=
+sd(x)
+@
+\par\vspace{0.4 cm}
+Another common dispersion measure is the variance, which is the square of the standard deviation:
+<<>>=
+var(x)
+@
+Sometimes it is more convenient to use the standard deviation, and sometimes it is easier to use the variance.  Both are common measures of dispersion.
+\par\vspace{0.4 cm}
+Since the binomial random variable is the sum of $n$ independent Bernoulli random variables, the mean will be $n$ times the mean of the Bernoulli random variables, and the variance will be $n$ times their variances.
+\par\vspace{0.4 cm}
+In general, when you add independent random variables together, the means and variances add as wall.  The standard deviations do not.
+\par\vspace{0.4 cm}
+For a binomial distribution, even though any value between zero and one is possible, the sample mean should be close to $n\cdot\theta$ and the variance should be close to $n\theta\cdot(1-\theta)$.
+\par\vspace{0.4 cm}
+Is that the case with your simulated data?
+\par\vspace{0.4 cm}
+(type your response here)
+
+\end{document}
