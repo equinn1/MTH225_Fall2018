@@ -1,0 +1,69 @@
+\documentclass{article}
+
+\begin{document}
+In-class exercise: The uniform distribution
+\section*{Introduction - The Uniform Distribution}
+One of the simplest but most useful continuous distributions is the uniform distribution.
+\par\vspace{0.4 cm}
+The probability experiment associated with the uniform distribution could be described as "pick a number between zero and one".
+\par\vspace{0.4 cm}
+The exponential distribution has no parameters although it can be generalized to cover any finite interval.
+\par\vspace{0.4 cm}
+An exponential random variable can assume any value between zero and one:
+\par\vspace{0.4 cm}
+\[
+X\in(0,1)\}
+\]
+\par\vspace{0.4 cm}
+We'll just use R to compute these values so we won't need to work with this formula directly.
+\section*{Generating uniform Random Variables}
+R provides built-in functions to generate most common probability distributions.
+\par\vspace{0.4 cm}
+The code to generate a vector of 100 independent uniform random variables is:
+\par\vspace{0.4 cm}
+\texttt{x = runif(100)}
+\par\vspace{0.4 cm}
+<<>>=
+x = runif(50)
+
+x
+@
+\par\vspace{0.4 cm}
+\section*{Exploring the Properties of the Sample}
+We can generate a histogram showing the values of $x$ to get an idea of the shape of the distribution:
+<<>>=
+hist(x)
+@
+\par\vspace{0.4 cm}
+We can compute the sample mean of the $x$ values (this should be close to $1/2$):
+<<>>=
+mean(x)
+@
+\par\vspace{0.4 cm}
+The sample mean is a measure of \textbf{location}.  It tells us where the distribution is "centered".
+\par\vspace{0.4 cm}
+Another measure of location is the median, which is defined as the observation hafway through the list if we order the sample by increasing values of $x$.
+\par\vspace{0.4 cm}
+<<>>=
+median(x)
+@
+\par\vspace{0.4 cm}
+We are also interested in how relatively spread out or clustered together values are near the mean.  This is called \textbf{dispersion}.  
+\par\vspace{0.4 cm}
+One common measure of dispersion is the standard deviation:
+<<>>=
+sd(x)
+@
+\par\vspace{0.4 cm}
+Another common dispersion measure is the variance, which is the square of the standard deviation:
+<<>>=
+var(x)
+@
+\par\vspace{0.4 cm}
+For a uniform distribution the sample mean should be close to $1/2$ and the variance should be close to $1/12$.
+\par\vspace{0.4 cm}
+Is that the case with your simulated data?
+\par\vspace{0.4 cm}
+(type your response here)
+
+\end{document}

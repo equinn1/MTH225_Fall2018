@@ -1,0 +1,65 @@
+\documentclass{article}
+
+\begin{document}
+In-class exercise: The beta distribution
+\section*{Introduction - The Beta Distribution}
+The beta distribution is a continuous distribution that takes values in the interval $(0,1)$.  The beta distribution is useful for modeling probabilities, which must take values between zero and one.
+\par\vspace{0.4 cm}
+The beta distribution has two shape parameters, $\alpha$ and $\beta$.  Both parameters must be positive. 
+\par\vspace{0.4 cm}
+The probability of a beta random variable assuming a value less than  $b$ is given by the integral
+\[
+\int_0^b\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}x^{\alpha-1}(1-x)^{\beta-1}\;dx
+\]
+We'll just use R to compute these values so we won't need to work with this formula directly.
+\section*{Generating Beta Random Variables}
+R provides built-in functions to generate most common probability distributions.
+\par\vspace{0.4 cm}
+The code to generate a vector of 50 independent beta random variables.  The shape parameters we will use are $\alpha=3$ and  $\beta=1$.
+\par\vspace{0.4 cm}
+\texttt{x = rbeta(100,3,1)}
+\par\vspace{0.4 cm}
+<<>>=
+x = rbeta(100,3,1)
+
+x
+@
+\par\vspace{0.4 cm}
+\section*{Exploring the Properties of the Sample}
+We can generate a histogram showing the values of $x$ to get an idea of the shape of the distribution:
+<<>>=
+hist(x)
+@
+\par\vspace{0.4 cm}
+We can compute the sample mean of the $x$ values (this should be close to $\alpha/(\alpha+\beta)$:
+<<>>=
+mean(x)
+@
+\par\vspace{0.4 cm}
+The sample mean is a measure of \textbf{location}.  It tells us where the distribution is "centered".
+\par\vspace{0.4 cm}
+Another measure of location is the median, which is defined as the observation hafway through the list if we order the sample by increasing values of $x$.
+\par\vspace{0.4 cm}
+<<>>=
+median(x)
+@
+\par\vspace{0.4 cm}
+We are also interested in how relatively spread out or clustered together values are near the mean.  This is called \textbf{dispersion}.  
+\par\vspace{0.4 cm}
+One common measure of dispersion is the standard deviation:
+<<>>=
+sd(x)
+@
+\par\vspace{0.4 cm}
+Another common dispersion measure is the variance, which is the square of the standard deviation:
+<<>>=
+var(x)
+@
+\par\vspace{0.4 cm}
+For a beta(3,1) distribution, the sample mean should be close to $3/4$.
+\par\vspace{0.4 cm}
+Is that the case with your simulated data?
+\par\vspace{0.4 cm}
+(type your response here)
+
+\end{document}

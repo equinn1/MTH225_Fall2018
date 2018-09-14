@@ -1,0 +1,71 @@
+\documentclass{article}
+
+\begin{document}
+In-class exercise: The normal distribution
+\section*{Introduction - The Normal Distribution}
+The most important distrubution in statistics is the normal distribution, also known as the bell curve.  Perhaps the most appropriate name for this distribution is the Gaussian, after the German mathematician Karl Gauss who investigated its properties.
+\par\vspace{0.4 cm}
+Most classical statistical tests are derived using the normal probability distribution as a model. In fact, data that actually fits a normal distribution is not common.  However, commonly used statistical tests are known to be insensitive to moderate departures from the normality assumption.
+\par\vspace{0.4 cm}
+Technically the normal distribution can assume any value between $-\infty$ and $\infty$, but it is almost entirely concentrated in a narrow band around its mean.  In fact, the proportion of the population outside the band 12 standard deviations wide centered at the mean is $2\times 10^{-9}$.
+\par\vspace{0.4 cm}
+The normal distribution has two parameters, a mean $\mu$ and a standard deviation $\sigma$. 
+\par\vspace{0.4 cm}
+The mean can be any real number, and the standard deviation can be any positive real number.
+\par\vspace{0.4 cm}
+The probability of a normal random variable assuming a value less than  $b$ is given by the integral
+\[
+\int_{-\infty}^b\frac{1}{\sqrt{2\pi}\sigma}\exp\left[-\frac{(x-\mu)^2}{2\sigma^2}\right]
+\]
+We'll just use R to compute these values so we won't need to work with this formula directly.
+\section*{Generating Normal Random Variables}
+R provides built-in functions to generate most common probability distributions.
+\par\vspace{0.4 cm}
+The code to generate a vector of 100 independent "standard" normal random variables.  The standard normal distribution has mean $\mu=0$ and standard deviation $\sigma=1$.
+\par\vspace{0.4 cm}
+\texttt{x = rnorm(100)}
+\par\vspace{0.4 cm}
+<<>>=
+x = rnorm(100)
+
+x
+@
+\par\vspace{0.4 cm}
+\section*{Exploring the Properties of the Sample}
+We can generate a histogram showing the values of $x$ to get an idea of the shape of the distribution:
+<<>>=
+hist(x)
+@
+\par\vspace{0.4 cm}
+We can compute the sample mean of the $x$ values (this should be close to $\mu=0$):
+<<>>=
+mean(x)
+@
+\par\vspace{0.4 cm}
+The sample mean is a measure of \textbf{location}.  It tells us where the distribution is "centered".
+\par\vspace{0.4 cm}
+Another measure of location is the median, which is defined as the observation hafway through the list if we order the sample by increasing values of $x$.
+\par\vspace{0.4 cm}
+<<>>=
+median(x)
+@
+\par\vspace{0.4 cm}
+We are also interested in how relatively spread out or clustered together values are near the mean.  This is called \textbf{dispersion}.  
+\par\vspace{0.4 cm}
+One common measure of dispersion is the standard deviation:
+<<>>=
+sd(x)
+@
+\par\vspace{0.4 cm}
+Another common dispersion measure is the variance, which is the square of the standard deviation:
+<<>>=
+var(x)
+@
+\par\vspace{0.4 cm}
+For a standard normal distribution the sample mean should be close to $0$ and the variance should be close to $1$.
+\par\vspace{0.4 cm}
+Is that the case with your simulated data?
+\par\vspace{0.4 cm}
+(type your response here)
+
+\end{document}
