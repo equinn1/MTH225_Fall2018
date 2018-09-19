@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><title>Sample R Program files</title>
+	<meta http-equiv="content-type" 
+		content="text/html;charset=utf-8" />
+	<link rel="stylesheet" href="../../stonehill.css" />
+
+</head><body bgcolor="#ffffff">
+
+<h1><center>MTH225 Example R Program Files</center></h1>
+<h2>Single sample methods</h2>
+Use these for inference about the parameters of a model based on a single sample.
+<h3>Parameter estimation - point estimates and confidence intervals</h3> 
+<p>
+<table border="1" width="100%">
+<tr align="center"><td><b>Task</b></td><td><b>Type</b></td><td><b>Rnw file</b></td><td><b>Additional Information</b></tr>
+
+<tr><td rowspan="2">Estimate the mean of a normal</td><td><center>F&nbsp;<a href="example_normal_mean_estimation_large_sample_summary.pdf">(Overview)</a></center></td><td><a href="example_normal_mean_estimation_large_sample.Rnw">example_normal_mean_estimation_large_sample.Rnw</a></td>
+<td><a href="https://www.r-bloggers.com/interval-estimation-of-the-population-mean/">Discussion on r-bloggers</td></tr>
+
+<tr><td><center>F&nbsp;<a href="example_normal_mean_estimation_small_sample_summary.pdf">(Overview)</a></center></td>
+<td><a href="example_normal_mean_estimation_small_sample.Rnw">example_normal_mean_estimation_small_sample.Rnw</a></td>
+<td><a href="https://www.r-bloggers.com/interval-estimation-of-the-population-mean/"">Discussion on r-bloggers</td></tr>
+
+<tr><td rowspan="1">Estimate the standard deviation of a normal population</td><td><center>F&nbsp;<a href="example_normal_standard_deviation_estimation_overview.pdf">(Overview)</a></center></td><td><a href="example_normal_standard_deviation_estimation.Rnw">example_normal_standard_deviation_estimation.Rnw</a></td>
+<td><a href="http://www.kean.edu/~fosborne/bstat/06evar.html">Discussion - Kean University</td></tr>
+
+<tr><td>Estimate the mean and standard deviation of a normal distibution</td><td><center>B&nbsp;<a href="example_normal_estimation_stan_overvew.pdf">(Overview)</a></center></td><td><a href="example_normal_estimation_stan.Rnw">example_normal_estimation_stan.Rnw</a></td>
+<td><a href="https://en.wikipedia.org/wiki/Normal_distribution">the normal distribution</td></tr>
+
+<tr><td rowspan="2">Estimate a proportion from a single sample</td><td><center>F&nbsp;<a href="example_one_sample_proportions.pdf">(Overview)</a></center></td><td><a href="example_one_sample_proportions.Rnw">example_one_sample_proportions.Rnw</a></td>
+<td><a href="http://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion">R-tutorial: estimating proportions</td></tr>
+
+<tr><td><center>B&nbsp;<a href="example_single_binomial_trial_stan_overview.pdf">(Overview)</center></td><td><a href="example_single_binomial_trial_stan.Rnw">example_single_binomial_trial_stan.Rnw</a></td>
+<td><a href="https://en.wikipedia.org/wiki/Binomial_distribution">the binomial distribution</td></tr>
+
+
+<tr><td rowspan="1">Estimate a proportion from multiple samples</td><td><center>B&nbsp;<a href="example_multiple_binomial_trial_stan_overview.pdf">(Overview)</a></center></td><td><a href="example_multiple_binomial_trials_stan.Rnw">example_multiple_sample_proportions.Rnw</a></td>
+<td><a href="https://en.wikipedia.org/wiki/Binomial_distribution">the binomial distribution</td></tr>
+
+<tr><td>Estimate the parameters of a beta distibution</td><td><center>B&nbsp;<a href="example_beta_estimation_stan_overview.pdf">(Overview)</a></center></td><td><a href="example_beta_estimation_stan.Rnw">example_beta_estimation_stan.Rnw</a></td>
+<td><a href="https://en.wikipedia.org/wiki/Beta_distribution">the beta distribution</td></tr>
+
+<tr><td>Estimate the parameters of a gamma distibution</td><td><center>B&nbsp;<a href="example_gamma_estimation_stan_overview.pdf">(Overview)</a></center></td>
+<td><a href="example_gamma_estimation_stan.Rnw">example_gamma_estimation_stan.Rnw</a></td>
+<td><a href="https://en.wikipedia.org/wiki/Gamma_distribution">the gamma distribution</td></tr>
+
+</table>
+<p>
+<h2>Linear Models</h2>
+<p>
+<table border="1" width="100%">
+<tr align="center"><td><b>Task</b></td><td><b>Type</b></td><td><b>Rnw file</b></td><td><b>Additional Information</b></tr>
+
+<tr><td rowspan="2">The mean-only model</td><td><center>F&nbsp;<a href="example_mean_only_model.pdf">(Overview)</a></center></td><td><a href="example_mean_only_model.Rnw">example_mean_only_model.Rnw</a></td>
+<td><a href="https://stackoverflow.com/questions/14216893/how-to-remove-intercept-in-r">Discussion on Stackoverflow.com</td></tr>
+
+<tr><td><center>B&nbsp;<a href="example_mean_only_model_stan_overview.pdf">(Overview)</a></center></td>
+<td><a href="example_mean_only_model_stan.Rnw">example_mean_only_model_stan.Rnw</a></td>
+<td>&nbsp;</td></tr>
+<tr><td rowspan="2">One-way ANOVA with two levels</td><td><center>F&nbsp;<a href="example_one_way_ANOVA_two_levels.pdf">(Overview)</a></center></td><td><a href="example_one_way_ANOVA_two_levels.Rnw">example_one_way_ANOVA_two_levels.Rnw</a></td>
+<td><a href="https://www.r-bloggers.com/one-way-anova-in-r/">Discussion on r-bloggers</td></tr>
+
+<tr><td><center>B&nbsp;<a href="example_one-way_ANOVA_two_levels_stan_overview.pdf">(Overview)</a></center></td>
+<td><a href="example_one_way_ANOVA_two_levels_stan.Rnw">example_one_way_ANOVA_two_levels_stan.Rnw</a></td>
+<td>&nbsp;</td></tr>
+
+<tr><td rowspan="2">One-way ANOVA with three levels</td><td><center>F&nbsp;<a href="example_one_way_ANOVA_three_levels.pdf">(Overview)</a></center></td><td><a href="example_one_way_ANOVA_three_levels.Rnw">example_one_way_ANOVA_three_levels.Rnw</a></td>
+<td><a href="https://www.r-bloggers.com/one-way-anova-in-r/">Discussion on r-bloggers</td></tr>
+
+<tr><td><center>B&nbsp;<a href="example_one_way_ANOVA_three_levels_stan_overview.pdf">(Overview)</a></center></td>
+<td><a href="example_one_way_ANOVA_three_levels_stan.Rnw">example_one_way_ANOVA_three_levels_stan.Rnw</a></td>
+<td>&nbsp;</td></tr>
+
+
+<tr><td rowspan="2">Simple regression</td><td><center>F&nbsp;<a href="example_simple_regression.pdf">(Overview)</a></center></td><td><a href="example_simple_regression.Rnw">example_simple_regression.Rnw</a></td>
+<td><a href="https://www.r-bloggers.com/one-way-anova-in-r/">Discussion on r-bloggers</td></tr>
+
+<tr><td><center>B&nbsp;<a href="example_simple_regression_stan.pdf">(Overview)</a></center></td>
+<td><a href="example_simple_regression_stan.Rnw">example_simple_regression_stan.Rnw</a></td>
+<td>&nbsp;</td></tr>
+
+</table>
+<p>
+
+</p></body></html>
