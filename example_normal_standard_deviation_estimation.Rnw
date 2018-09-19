@@ -1,0 +1,99 @@
+\documentclass{article}
+
+\begin{document}
+\section*{Estimating the standard deviation of a normal population}
+\subsection*{Background and assumptions}
+This program computes point and interval estimates (confidence intervals) for the standard deviation of a normal population using a single sample.
+\par\vspace{0.3 cm}
+Assumptions:
+\begin{itemize}
+\item The data $(y_1,y_2,\ldots,y_n)$ is a set of $n$ independent, identically distributed random variables.
+\item The probability distribution of this measure in the population sampled is normal or Gaussian $N(\mu,\sigma)$.
+\item We will estimate the polulation standard deviation $\sigma$ as the sample standard deviation $s$.
+\end{itemize}
+\par\vspace{0.3 cm}
+Technically, the procedure described here gives a confidence interval for $\sigma^2$, the variance.
+\par\vspace{0.3 cm}
+The standard deviation is the square root of the variance.
+\par\vspace{0.3 cm}
+Both are used because in some cases it is easier to work with the standard deviation, and in others it is easier to work with the variance.
+\par\vspace{0.3 cm}
+\subsection*{Reading the data}
+How you read the data will vary depending on the format it is in.
+\par\vspace{0.3 cm}
+For the sake of this example, we will keep things simple by reading the Fisher Iris data, which is installed with R.
+\par\vspace{0.3 cm}
+In the sequel, the code will assume your data vector is named \texttt{y}, so unless you plan to modify the code, you need to copy the data you want to analyze to a vector called \texttt{y} in some fashion.
+\par\vspace{0.3 cm}
+<<>>=
+data(iris)              #load the iris data
+
+str(iris)               #display its structure
+
+y = iris$Sepal.Length   #we'll analyze the sepal lengths
+@
+\par\vspace{0.3 cm}
+\subsection*{Computing the point and interval estimates for the population variance $\sigma^2$}
+
+\par\vspace{0.3 cm}
+The point estimate for $\sigma^2$ is the sample variance $s^2$:
+\par\vspace{0.3 cm}
+\[
+s^2 = \frac{\sum_{i=1}^n(y_i-\overline{y})^2}{n-1}
+\]
+\par\vspace{0.3 cm}
+<<>>=
+s2 = var(y)          #the sample variance s-squared 
+
+@
+\par\vspace{0.3 cm}
+Next we want a confidence interval for $\sigma^2$.
+\par\vspace{0.3 cm}
+If you look in any standard textbook, it will give this formula for the $100(1-\alpha)\%$ confidence interval for $\sigma^2$:
+\par\vspace{0.3 cm}
+\[
+\frac{(n-1)s^2}{\chi^2_{1-\alpha/2}} < \sigma^2 < \frac{(n-1)s^2}{\chi^2_{\alpha/2}}
+\]
+\par\vspace{0.3 cm}
+Here $\alpha$ is probability we are willing to accept that the interval we constructed \textbf{does not contain} the true value of $\sigma^2$.  
+\par\vspace{0.3 cm}
+More often than not $\alpha$ is taken to be $.05$.  The confidence level is stated as $100(1-\alpha)$ percent, or 95\% if $\alpha=.05$.
+\par\vspace{0.3 cm}
+First we set the value of $\alpha$:
+<<>>=
+alpha = .05
+
+print("The confidence level in percent is:")
+100*(1-alpha)
+@
+\par\vspace{0.3 cm}
+Now compute the sample size:
+<<>>=
+n = length(y)
+print("The sample size is:")
+print(n)
+@
+\par\vspace{0.3 cm}
+Now compute the lower limit $L$ of the $100(1-\alpha)\%$ confidence interval for $\sigma^2$,
+\[
+\frac{(n-1)s^2}{\chi^2_{1-\alpha/2}}
+\]
+\par\vspace{0.3 cm}
+<<>>=
+L = ((n-1)*var(y))/qchisq(1-alpha/2,n-1)
+@
+Compute the upper limit $U$ of the $100(1-\alpha)\%$ confidence interval for $\sigma^2$,
+\[
+\frac{(n-1)s^2}{\chi^2_{\alpha/2}}
+\]
+<<>>=
+U = ((n-1)*var(y))/qchisq(alpha/2,n-1)
+
+result = c(L,var(y),U)
+
+print("The lower CI limit, point estimate, and upper CI limit are:")
+
+print(result)
+@
+
+\end{document}

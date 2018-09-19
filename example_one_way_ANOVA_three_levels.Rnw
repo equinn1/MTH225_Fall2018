@@ -1,0 +1,100 @@
+\documentclass{article}
+
+\begin{document}
+
+\section*{One-way ANOVA with three levels}
+\subsection*{Structure of the model}
+An ANOVA with three levels can be written with three $\beta$ parameters: 
+\[
+Y = \beta_1X_1 + \beta_2X_2 + \beta_3X_3 + e
+\]
+\par\vspace{0.3 cm}
+where:
+\begin{itemize}
+\item $Y$ is a vector of observed values
+\item $\beta_1$ is a parameter representing the mean at level 1, treated as unknown but constant.
+\item $X_1$ is a binary predictor that is 1 if this $y$ has the factor at level 1, zero otherwise
+\item $\beta_2$ is a parameter representing the mean at level 2, treated as unknown but constant.
+\item $X_2$ is a binary predictor that is 1 if this $y$ has the factor at level 2, zero otherwise
+\item $\beta_3$ is a parameter representing the mean at level 3, treated as unknown but constant.
+\item $X_3$ is a binary predictor that is 1 if this $y$ has the factor at level 3, zero otherwise
+\item $e$ is a vector of independent, identically distributed $N(0,\sigma_e)$ random variables
+\item $\sigma_e$ is the standard deviation of the error or residual terms $e$, which are assumed to have mean zero.
+\end{itemize}
+\par\vspace{0.3 cm}
+\subsection*{Example: Sepal width by species}
+
+Read the data:
+
+<<>>=
+data(iris)
+
+Sepal.Width   = iris$Sepal.Width      #get sepal width
+
+Species       = iris$Species
+@
+
+Check out the data with a boxplot
+
+<<>>=
+boxplot(Sepal.Width~Species)
+@
+
+Now run the one-way ANOVA.  
+\par\vspace{0.3 cm}
+As long as Species is a factor, R will determine the number of levels.
+\par\vspace{0.3 cm}
+<<>>=
+aov1 = aov(Sepal.Width ~ Species)
+
+summary(aov1)
+@
+This is the standard ANOVA table.
+\par\vspace{0.3 cm}
+It has one line for each factor, and one line for \texttt{Residuals}.
+\par\vspace{0.3 cm}
+Since we have only one factor, it has only two lines.
+\par\vspace{0.3 cm}
+The \texttt{Species} line is for the species factor.  The F-statistic has \texttt{Pr($>$F)} much less than $.05$, 
+so it is very unlikely that this data was generated from a dataset where the mean sepal width values of the three species are nearly the same.
+\par\vspace{0.3 cm}
+Like any linear model, this one has fitted values.  We can examine them with a boxplot:
+
+<<>>=
+boxplot(aov1$fitted.values~Species)
+@
+
+The fitted values in any one-way ANOVA are the means for the levels: 
+\par\vspace{0.3 cm}
+Compute the means of Sepal.Width by level of Species:
+
+<<>>=
+tapply(Sepal.Width,Species,mean)
+@
+
+These can be obtained from the coefficients, though the presentation can be confusing:
+
+<<>>=
+aov1$coefficients
+@
+
+You would interpret this to say that the expected sepal width for setosa is the \texttt{(Intercept)} value.  
+\par\vspace{0.3 cm}
+To obtain the expected sepal width for versicolor, add the \texttt{(Intercept)} and \texttt{Speciesversicolor} values.  
+\par\vspace{0.3 cm}
+For virginica, add the \texttt{(Intercept)} and \texttt{Speciesvirginica} 
+\par\vspace{0.3 cm}
+This will produce the same numbers as we got by computing the mean sepal width values by species.
+
+Since we have three levels, we need to determine which differences are significant.  
+\par\vspace{0.3 cm}
+We will use the Tukey honest significant difference multiple comparison test.
+\par\vspace{0.3 cm}
+<<>>=
+TukeyHSD(aov1)
+@
+
+Differences that are significant have the same sign for \texttt{lwr} and \texttt{upr}.  The approximate significance level is in the \texttt{p adj} column.
+\par\vspace{0.3 cm}
+In this case, each pair of means is significantly different.
+\end{document}

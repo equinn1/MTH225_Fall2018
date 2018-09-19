@@ -1,0 +1,47 @@
+\documentclass{article}
+
+\begin{document}
+\section*{Estimating a proportion from the results of multiple binomial experiments}
+This program estimates the probability of success from the results of a series of binomial experiments.
+\par\vspace{0.3 cm}
+The data consists of a number of pairs of positive integers.  The first element is the number of trials in the binomial experiment, and the second is the number of successes (however those are defined).
+\[
+\{(n_1,y_1),(n_2,y_2),(n_3,y_3),\ldots\}
+\]
+
+<<>>=                                      #standard setup for Stan
+library(rstan)
+library(bayesplot)
+rstan_options(auto_write = TRUE)
+options(mc.cores = parallel::detectCores())
+@
+
+<<>>=
+df = read.csv("example_binomial_data.csv")
+
+y      = df$y
+trials = df$n
+
+N      = length(y)
+@
+
+
+<<>>=
+stanfit = stan("binomial.stan")         #call stan to fit the model
+
+print(stanfit)                           #print a summary of the results
+
+print(get_stanmodel(stanfit))
+@
+
+<<>>=
+
+pd=extract(stanfit)       #extract the posterior draw values
+
+str(pd)                                  #show the structure of the posterior draw
+@
+
+<<>>=
+Sys.info()[["user"]]
+@
+\end{document}

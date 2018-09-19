@@ -1,0 +1,51 @@
+\documentclass{article}
+
+\begin{document}
+\section*{Bayesian mean-only linear model with Stan}
+In this program, we assume that we have a vector of $N$ observations that can be reasonably modeled by a $N(\mu,\sigma)$ distribution.
+\par\vspace{0.3 cm}
+Our objective is to fit the mean-only linear model:
+\[
+Y = \beta_0+e
+\]
+\par\vspace{0.3 cm}
+<<>>=                                      #standard setup for Stan
+library(rstan)
+library(bayesplot)
+rstan_options(auto_write = TRUE)
+options(mc.cores = parallel::detectCores())
+@
+
+As with the frequentist version, we'll use the versicolor Sepal.Width measurements from the iris dataset.
+
+<<>>=
+data(iris)
+
+vsc = iris[iris$Species=='versicolor',]
+str(vsc)
+
+y   = vsc$Sepal.Width     
+
+N   = length(y)
+@
+
+
+<<>>=
+stanfit = stan("mean_only.stan")         #call stan to fit the model
+
+print(stanfit)                           #print a summary of the results
+
+print(get_stanmodel(stanfit))
+@
+
+<<>>=
+
+pd=extract(stanfit)       #extract the posterior draw values
+
+str(pd)                                  #show the structure of the posterior draw
+@
+
+<<>>=
+Sys.info()[["user"]]
+@
+\end{document}

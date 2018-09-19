@@ -1,0 +1,59 @@
+\documentclass{article}
+
+\begin{document}
+\section*{Bayesian one-way ANOVA with two levels with Stan}
+In this program, we assume that we have a vector of $N$ observations that can be classified according to some characteristic or \textbf{factor} which has two values or levels.
+\par\vspace{0.3 cm}
+Our objective is to fit a one-way ANOVA model with two levels:
+\[
+Y = \beta_1X_1 + \beta_2X_2 + e
+\]
+\par\vspace{0.3 cm}
+<<>>=                                      #standard setup for Stan
+library(rstan)
+rstan_options(auto_write = TRUE)
+options(mc.cores = parallel::detectCores())
+@
+
+As with the frequentist version, we'll use the highway mpg values from the epa mileage dataset.
+
+<<>>=
+df    =  read.csv("epa.csv")             #read the epa data
+dfh   =  df[df$C.H=='H',]                #select highway - don't forget the comma before the closing ]
+
+lvl   = as.numeric(dfh$car.truck)        #get numeric level numbers
+str(lvl)                                 #check that we got numerical values
+
+y     = dfh$mpg                          #y is mpg
+
+N     = length(y)                        #number of observations
+
+L     = 2                                #number of levels
+@
+
+
+<<>>=
+stanfit = stan("one_way_ANOVA.stan")         #call stan to fit the model
+
+print(stanfit)                           #print a summary of the results
+
+print(get_stanmodel(stanfit))
+@
+
+<<>>=
+
+pd=extract(stanfit)       #extract the posterior draw values
+
+str(pd)                                  #show the structure of the posterior draw
+@
+
+Compute the estimated probability that trucks get lower mileage than cars:
+
+<<>>=
+mean(pd$alpha[,1]>pd$alpha[,2])        #compute proportion of posterior draw with alpha1 > alpha2
+@
+
+<<>>=
+Sys.info()[["user"]]
+@
+\end{document}

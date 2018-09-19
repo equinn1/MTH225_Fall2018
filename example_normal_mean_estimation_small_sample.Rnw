@@ -1,0 +1,106 @@
+\documentclass{article}
+
+\begin{document}
+\section*{Estimating the mean of a normal population - small sample version}
+\subsection*{Background and assumptions}
+This program computes point and interval estimates (confidence intervals) for the mean of a normal population using a single sample.
+\par\vspace{0.3 cm}
+Assumptions:
+\begin{itemize}
+\item The data $(y_1,y_2,\ldots,y_n)$ is a set of $n$ independent, identically distributed random variables.
+\item The probability distribution of this measure in the population sampled is normal or Gaussian $N(\mu,\sigma)$.
+\item We will estimate the polulation standard deviation $\sigma$ as the sample standard deviation $s$.
+\item We will not assume that our estimate of $s$ is reliable enough to treat it as the true population standard deviation.
+\end{itemize}
+\par\vspace{0.3 cm}
+Why does it matter whether we know $\sigma$ or not?  If we know $\sigma$, then
+\[
+z = \frac{\overline{y}-\mu}{\sigma/\sqrt{n}}
+\]
+has a standard normal distribution, $N(0,1)$.
+\par\vspace{0.3 cm}
+If we estimate $\sigma$ from the same data we used to estimate the mean $\mu$, then
+\[
+\frac{\overline{y}-\mu}{s/\sqrt{n}}
+\]
+has a $t$-distribution with $n-1$ degrees of freedom. Here $s$ is the sample standard deviation:
+\[
+s = \sqrt{\frac{\sum_{i=1}^n(y_i-\overline{y})}{n-1}}
+\]
+\par\vspace{0.3 cm}
+In this setting, we will use the $t$ distribution to construct our interval estimates.
+\par\vspace{0.3 cm}
+In my opinion, the decision whether to use $t$ or $z$ is not very important, you could use $t$ (the "small sample") version for everything.
+\par\vspace{0.3 cm}
+The reason is that the $t$-distribution is virtually indistinguishable from the normal when the sample size is larger than 50.
+\par\vspace{0.3 cm}
+\subsection*{Reading the data}
+How you read the data will vary depending on the format it is in.
+\par\vspace{0.3 cm}
+For the sake of this example, we will keep things simple by reading the Fisher Iris data, which is installed with R.
+\par\vspace{0.3 cm}
+In the sequel, the code will assume your data vector is named \texttt{y}, so unless you plan to modify the code, you need to copy the data you want to analyze to a vector called \texttt{y} in some fashion.
+\par\vspace{0.3 cm}
+<<>>=
+data(iris)              #load the iris data
+
+str(iris)               #display its structure
+
+y = iris$Sepal.Length   #we'll analyze the sepal lengths
+@
+\par\vspace{0.3 cm}
+\subsection*{Computing the point and interval estimates for the population mean mu}
+Next we'll compute the sample mean $\overline{y}$ of $y$.
+\par\vspace{0.3 cm}
+The point estimate for $\mu$ is the sample mean $\overline{y}$:
+\par\vspace{0.3 cm}
+<<>>=
+ybar = mean(y)          #the sample mean 
+
+@
+\par\vspace{0.3 cm}
+Next we want a confidence interval for $\mu$.
+\par\vspace{0.3 cm}
+If you look in any standard textbook, it will give this formula for the upper and lower limits:
+\par\vspace{0.3 cm}
+\[
+\overline{y}\pm z_{\alpha/2}\frac{s}{\sqrt{n}}
+\]
+\par\vspace{0.3 cm}
+Where $\alpha$ is probability we are willing to accept that the interval we constructed \textbf{does not contain} the true value of $\mu$.  
+\par\vspace{0.3 cm}
+More often than not $\alpha$ is taken to be $.05$.  The confidence level is stated as $100(1-\alpha)$ percent, or 95\% if $\alpha=.05$.
+\par\vspace{0.3 cm}
+First we set the value of $\alpha$:
+<<>>=
+alpha = .05
+@
+\par\vspace{0.3 cm}
+Now compute the $100(1-\alpha)\%$ confidence interval:
+\par\vspace{0.3 cm}
+<<>>=
+s = sd(y)          #compute the sample standard deviation
+
+print("The sample standard deviation is")
+s
+
+n = length(y)      #and the sample size n
+
+t = qt(1-alpha/2,n-1)
+
+CI = c(ybar-t*s/sqrt(n),ybar+t*s/sqrt(n))
+
+
+print("The point estimate for mu is")
+
+ybar
+
+print("The confidence level in percent is:")
+100*(1-alpha)
+
+print("The interval is:")
+
+CI
+@
+
+\end{document}

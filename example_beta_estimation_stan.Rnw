@@ -1,0 +1,45 @@
+\documentclass{article}
+
+\begin{document}
+\section*{Estimating the parameters of a beta distribution}
+This program estimates the parameters of a $\beta$ distribution, which is a continuous probability distribution that takes values on the interval $(0,1)$.
+\par\vspace{0.3 cm}
+
+<<>>=                                      #standard setup for Stan
+library(rstan)
+library(bayesplot)
+rstan_options(auto_write = TRUE)
+options(mc.cores = parallel::detectCores())
+@
+
+<<>>=
+df = read.csv("example_beta_data.csv")
+
+y      = df$y
+
+N      = length(y)
+@
+
+
+<<>>=
+stanfit = stan("beta.stan")         #call stan to fit the model
+@
+
+<<>>=
+print(stanfit)                           #print a summary of the results
+
+
+print(get_stanmodel(stanfit))
+@
+
+<<>>=
+
+pd=extract(stanfit)       #extract the posterior draw values
+
+str(pd)                                  #show the structure of the posterior draw
+@
+
+<<>>=
+Sys.info()[["user"]]
+@
+\end{document}

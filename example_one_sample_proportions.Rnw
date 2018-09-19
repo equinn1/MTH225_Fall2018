@@ -1,0 +1,33 @@
+\documentclass{article}
+
+\begin{document}
+
+\section*{Point estimate and confidence intervals for proportions}
+The objective in this example is to estimate the \textbf{proportion} of individuals in a population that have some characteristic.
+\par\vspace{0.3 cm}
+Recall that a \textbf{Bernoulli trial} is a probability experiment with two outcomes, usually labeled \textbf{success} and \textbf{failure}.
+\par\vspace{0.3 cm}
+The likelihood model for a proportion is a vector of $n$ independent Bernoulli trials with a common, but unkonwn, probability $p$ that a randomly selected individual will have the characteristic.
+\par\vspace{0.3 cm}
+The number of individuals in the sample who have the characteristic of interest is $y$.
+\par\vspace{0.3 cm}
+The R function \texttt{prop.test} computes point and interval estimates for the proportion of individuals who have the characteristic.
+\par\vspace{0.3 cm}
+\section*{Example: Estimating the proportion of people who identify as left-handed}
+Suppose a certain college has 3200 students, of whom 391 identify as left-handed.
+\par\vspace{0.3 cm}
+<<>>=
+n = 3200
+
+y = 391
+
+prop.test(y,n,conf.level=0.95)
+@
+
+By default, \texttt{prop.test} uses a confidence level of $95\%$, but you can change this with the \texttt{conf.level} parameter.
+<<>>=
+prop.test(y,n,conf.level=0.9)
+@
+
+The confidence level does not have any effect on the point estimate.
+\end{document}

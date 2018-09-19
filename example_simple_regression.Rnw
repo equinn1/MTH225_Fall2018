@@ -1,0 +1,71 @@
+\documentclass{article}
+
+\begin{document}
+
+\section*{Simple regression model}
+\subsection*{Structure of the model}
+A simple regression can be written with two $\beta$ parameters, a slope $\beta_1$ and intercept $\beta_0$: 
+\[
+Y = \beta_0 + \beta_1X + e
+\]
+\par\vspace{0.3 cm}
+where:
+\begin{itemize}
+\item $Y$ is a vector of observed values
+\item $\beta_0$ is a parameter representing the intercept of the regression line.
+\item $X$ is a continuous predictor.
+\item $\beta_1$ is a parameter representing the slope of the regression line.
+\item $e$ is a vector of independent, identically distributed $N(0,\sigma_e)$ random variables
+\item $\sigma_e$ is the standard deviation of the error or residual terms $e$, which are assumed to have mean zero.
+\end{itemize}
+\par\vspace{0.3 cm}
+\subsection*{Example: Predicting weight by height}
+
+Read the data:
+
+<<>>=
+df    =  read.table("body.dat.txt")        #read the body measurement data
+str(df)
+
+wkg   =  df$V23                            #weight in kg
+
+hcm   =  df$V24                            #height in cm
+@
+
+Check out the data with a scatter plot
+
+<<>>=
+plot(wkg~hcm)
+@
+
+Now run the regression model.  
+\par\vspace{0.3 cm}
+<<>>=
+lm1 = lm(wkg ~ hcm)
+
+summary(lm1)
+@
+This is the standard regression model summary. 
+\par\vspace{0.3 cm}
+The regression line has a slope of $1.02$ and an intercept of $-105$.
+\par\vspace{0.3 cm}
+The interpretation in this case is that for each 1 cm of height, the expected weight increases by $1.02$kg. 
+\par\vspace{0.3 cm}
+The intercept is the expected weight of a person zero cm tall, which is not meaningful in this setting.
+\par\vspace{0.3 cm}
+The column \texttt{Pr($>|t|)$} contains the $p$-value.  A small $p$-value, say below .05, indicates that the data we observed is not very likely if in fact this parameter is zero.
+
+Like any linear model, this one has fitted values.  We can examine them by plotting against height:
+
+<<>>=
+plot(lm1$fitted.values~hcm)
+@
+
+We should also examine the residuals for any systematic patterns:
+\par\vspace{0.3 cm}
+
+<<>>=
+plot(lm1$residuals~hcm)
+@
+
+\end{document}

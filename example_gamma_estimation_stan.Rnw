@@ -1,0 +1,45 @@
+\documentclass{article}
+
+\begin{document}
+\section*{Estimating the parameters of a gamma distribution}
+This program estimates the parameters of gamma distribution, which is a continuous probability distribution on $(0,\infty)$.
+\par\vspace{0.3 cm}
+
+<<>>=                                      #standard setup for Stan
+library(rstan)
+library(bayesplot)
+rstan_options(auto_write = TRUE)
+options(mc.cores = parallel::detectCores())
+@
+
+<<>>=
+df = read.csv("example_gamma_data.csv")
+
+y      = df$y
+
+N      = length(y)
+@
+
+
+<<>>=
+stanfit = stan("gamma.stan")         #call stan to fit the model
+@
+
+<<>>=
+print(stanfit)                           #print a summary of the results
+
+
+print(get_stanmodel(stanfit))
+@
+
+<<>>=
+
+pd=extract(stanfit)       #extract the posterior draw values
+
+str(pd)                                  #show the structure of the posterior draw
+@
+
+<<>>=
+Sys.info()[["user"]]
+@
+\end{document}

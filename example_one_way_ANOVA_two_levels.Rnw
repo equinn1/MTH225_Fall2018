@@ -1,0 +1,83 @@
+\documentclass{article}
+
+\begin{document}
+
+\section*{One-way ANOVA with two levels}
+\subsection*{Structure of the model}
+The simplest possible ANOVA has two levels for the factor, and can be written with two $\beta$ parameters: 
+\[
+Y = \beta_1X_1 + \beta_2X_2 + e
+\]
+\par\vspace{0.3 cm}
+where:
+\begin{itemize}
+\item $Y$ is a vector of observed values
+\item $\beta_1$ is a parameter representing the mean at level 1, treated as unknown but constant.
+\item $X_1$ is a binary predictor that is 1 if this $y$ has the factor at level 1, zero otherwise
+\item $\beta_2$ is a parameter representing the mean at level 2, treated as unknown but constant.
+\item $X_2$ is a binary predictor that is 1 if this $y$ has the factor at level 2, zero otherwise
+\item $e$ is a vector of independent, identically distributed $N(0,\sigma_e)$ random variables
+\item $\sigma_e$ is the standard deviation of the error or residual terms $e$, which are assumed to have mean zero.
+\end{itemize}
+\par\vspace{0.3 cm}
+\subsection*{Example: Highway mileage by Car/Truck}
+
+Read the data:
+
+<<>>=
+df  = read.csv("epa.csv")
+dfh = df[df$C.H=='H',]     #select just highway.  Don't forget the comma before the closing ]
+
+CT = dfh$car.truck         #pick out car.truck and display its structure         
+str(CT)
+
+mpg = dfh$mpg              #get miles per gallon
+@
+
+Check out the data with a boxplot
+
+<<>>=
+boxplot(mpg~CT)
+@
+
+Now run the one-way ANOVA.  
+\par\vspace{0.3 cm}
+As long as CT is a factor, R will determine the number of levels.
+\par\vspace{0.3 cm}
+<<>>=
+aov1 = aov(mpg ~ CT)
+
+summary(aov1)
+@
+This is the standard ANOVA table.
+\par\vspace{0.3 cm}
+It has one line for each factor, and one line for \texttt{Residuals}.
+\par\vspace{0.3 cm}
+Since we have only one factor, it has only two lines.
+\par\vspace{0.3 cm}
+The \texttt{CT} line is for the car/truck factor.  The F-statistic has \texttt{Pr($>$F)} much less than $.05$, 
+so it is very unlikely that this data was generated from a dataset where the mean mpg values of cars and trucks were nearly the same.
+\par\vspace{0.3 cm}
+Like any linear model, this one has fitted values.  We can examine them with a boxplot:
+
+<<>>=
+boxplot(aov1$fitted.values~CT)
+@
+
+The fitted values in any one-way ANOVA are the means for the levels: 
+\par\vspace{0.3 cm}
+Compute the means of mpg by level of CT:
+
+<<>>=
+tapply(mpg,CT,mean)
+@
+
+These can be obtained from the coefficients, though the presentation can be confusing:
+
+<<>>=
+aov1$coefficients
+@
+
+You would interpret this to say that the expected mpg for cars is the \texttt{(Intercept)} value.  To obtain the expected mpg for trucks, add the \texttt{(Intercept)} and \texttt{CTT} values.  This will produce the same numbers as we got by computing the mean mpg values by level.
+
+\end{document}

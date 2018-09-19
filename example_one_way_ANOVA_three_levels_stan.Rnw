@@ -1,0 +1,54 @@
+\documentclass{article}
+
+\begin{document}
+\section*{Bayesian one-way ANOVA with three levels with Stan}
+In this program, we assume that we have a vector of $N$ observations that can be classified according to some characteristic or \textbf{factor} which has three values or levels.
+\par\vspace{0.3 cm}
+Our objective is to fit a one-way ANOVA model with two levels:
+\[
+Y = \beta_1X_1 + \beta_2X_2 + \beta_3X_3 + e
+\]
+\par\vspace{0.3 cm}
+<<>>=                                      #standard setup for Stan
+library(rstan)
+rstan_options(auto_write = TRUE)
+options(mc.cores = parallel::detectCores())
+@
+
+As with the frequentist version, we'll use the highway mpg values from the epa mileage dataset.
+
+<<>>=
+data(iris)                               #read the iris data
+
+y     =iris$Sepal.Width
+
+lvl   =as.numeric(iris$Species)          #species as number
+
+L     = 3                                # of levels
+
+N     = length(y)                        # of observations
+@
+
+
+<<>>=
+stanfit = stan("one_way_ANOVA.stan")         #call stan to fit the model
+@
+
+
+<<>>=
+print(stanfit)                           #print a summary of the results
+
+print(get_stanmodel(stanfit))
+@
+
+<<>>=
+
+pd=extract(stanfit)       #extract the posterior draw values
+
+str(pd)                                  #show the structure of the posterior draw
+@
+
+<<>>=
+Sys.info()[["user"]]
+@
+\end{document}

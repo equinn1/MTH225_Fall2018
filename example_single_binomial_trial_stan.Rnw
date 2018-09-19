@@ -1,0 +1,41 @@
+\documentclass{article}
+
+\begin{document}
+
+This 
+
+<<>>=                                      #standard setup for Stan
+library(rstan)
+library(bayesplot)
+rstan_options(auto_write = TRUE)
+options(mc.cores = parallel::detectCores())
+@
+
+<<>>=                                     #generate a single binomial observation
+N = 100                                   #number of trials
+
+theta=0.4                                 #probability of success is 0.4
+
+y = theta*N                               #number of successes
+@
+
+
+<<>>=
+stanfit = stan("binomial_single_trial.stan")         #call stan to fit the model
+
+print(stanfit)                           #print a summary of the results
+
+print(get_stanmodel(stanfit))
+@
+
+<<>>=
+
+pd=extract(stanfit)       #extract the posterior draw values
+
+str(pd)                                  #show the structure of the posterior draw
+@
+
+<<>>=
+Sys.info()[["user"]]
+@
+\end{document}

@@ -1,0 +1,61 @@
+\documentclass{article}
+
+\begin{document}
+
+\section*{Mean-only linear model}
+\subsection*{Structure of the model}
+The simplest possible linear model consists of just a constant term, and the fitted value will be the sample mean:
+\[
+Y = \beta + e
+\]
+\par\vspace{0.3 cm}
+where:
+\begin{itemize}
+\item $Y$ is a vector of observed values
+\item $\beta$ is a parameter, treated as unknown but constant
+\item $e$ is a vector of independent, identically distributed $N(0,\sigma_e)$ random variables
+\item $\sigma_e$ is the standard deviation of the error or residual terms $e$, which are assumed to have mean zero.
+\end{itemize}
+\par\vspace{0.3 cm}
+\subsection*{Example: Estimating the Sepal.Width mean from the Iris data}
+
+Read the data:
+
+<<>>=
+data(iris)
+str(iris)
+@
+
+Select only versicolor so we can easily interpret the results:
+
+<<>>=
+vsc = iris[iris$Species=='versicolor',]
+
+str(vsc)
+
+mean(vsc$Sepal.Width)          #get the mean Sepal.Width for versicolor
+
+sd(vsc$Sepal.Width)            #get the standard deviation of the sepal width
+@
+
+Now run the mean-only model.  
+\par\vspace{0.3 cm}
+We have to resort to some trickery as R will not allow a factor with one level or an intercept-only regression.
+\par\vspace{0.3 cm}
+The trick is to create a variable called $x$ that is all ones, and tell R the model has no intercept.
+\par\vspace{0.3 cm}
+This will produce the desired mean-only model fit.
+
+<<>>=
+Sepal.Width = vsc$Sepal.Width
+
+x           = rep(1,length(Sepal.Width))
+
+lm1 = lm(Sepal.Width~x-1)
+summary(lm1)
+@
+
+Notice that the \texttt{Coefficients:} \texttt{Estimate} of $x$ in the model matches the mean of \texttt{Sepal.Width}, and the \texttt{Residual standard error:} matches the standard deviation of \texttt{Sepal.Width}
+
+While you will probably never have occasion to use this model, it is important because more complicated models reduce to the mean-only model when the factors or continuous predictors do not significantly improve the fit over this model.
+\end{document}
