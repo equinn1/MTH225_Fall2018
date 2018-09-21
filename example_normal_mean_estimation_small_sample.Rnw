@@ -102,5 +102,19 @@ print("The interval is:")
 
 CI
 @
+\subsection*{Obtaining a Confidence Interval using \text{t.test}}
+You can avoid dealing with the formula (probably a good idea) by using a built-in function in R called \text{t.test}.
+\par\vspace{0.5 cm}
+In fact, it is almost always preferable to use a feature built into the software than it is to write your own code for a couple of reasons:
+\begin{itemize}
+\item Unless the formula is very simple, it's less work to use the built-in function
+\item You are unlikely to make a mistake that will give incorrect results, possibly with no indication that they are wrong.
+\end{itemize}
+\par\vspace{0. cm}
+The preferred method of obtaining single-sample confidence intervals is the \texttt{t.test} function.  You can display the documentation by entering \texttt{?t.test()} at an R command prompt.
+\par\vspace{0.4 cm}
+<<>>=
+t.test(y)
+@
 
 \end{document}
