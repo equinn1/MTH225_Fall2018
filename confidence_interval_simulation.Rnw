@@ -1,0 +1,70 @@
+\documentclass{article}
+
+\begin{document}
+\section*{Normal confidence interval simulation}
+Given a sample from a normal population with a mean of $\mu$, In theory, the \texttt{t.test} function will generate a random ordered pair (L,U) with the property that 
+\[
+P(L < \mu < U) = 0.95
+\]
+\par\vspace{0.3 cm}
+Suppose we want to see if this is true.
+\par\vspace{0.3 cm}
+We'll generate a collection of normal samples with a known mean $\mu$, run \texttt{t.test} on each of them, and see how many of the resulting confidence intervals actually contain $\mu$.
+\par\vspace{0.3 cm}
+First set the values of $\mu$ and $\sigma$, the hypothetical population mean and standard deviation:
+<<>>=
+mu = 250
+sigma = 10
+@
+Now decide how many samples we want in the collection, and how many observations are in each sample.  We'll start with 150 samples of 15 observations each
+<<eval=FALSE>>=
+n_samp = 50
+n_obs  = 15
+@
+Next generate the array of simulated N($\mu$,$\sigma$) values:
+<<eval=FALSE>>=
+y <- array(rnorm(n_obs*n_samp,mu,sigma), dim=c(n_samp,n_obs))
+@
+Check the dimensions of y:
+<<eval=FALSE>>=
+nrow(y)
+ncol(y)
+@
+Let's display the first few samples:
+<<eval=FALSE>>=
+y[1:10,]
+@
+Suppose we want a boxplot of each sample.  Let's try the simplest code possible:
+<<eval=FALSE>>=
+boxplot(y)
+@
+
+That's close to what we want, but we want the individual bars to be the rows of y, not the columns.  All we have to do is transpose y with the \texttt{t()} function.  We'll just show the first 50 samples:
+<<eval=FALSE>>=
+boxplot(t(y[1:50,]))
+@
+
+Now set up an array to hold the confidence intervals.  It will have one row for each sample (i.e., one row of ci for each row of y) and two columns.  We'll initialize it with zeros.
+<<eval=FALSE>>=
+ci <- array(0,dim=c(nrow(y),2))
+            
+ci[1:10,]
+@
+
+Now loop through the samples (the rows of y) and use \texttt{t.test} to generate a confidence interval for that sample.  Save the confidence intervals in the ci array.
+<<eval=FALSE>>=
+for (i in 1:nrow(y)){
+  tt = t.test(y[i,])
+  ci[i,] = tt$conf.int
+}
+
+ci[1:20,]
+@
+
+Finally, find the proportion of rows of the ci array that have the first element greater than $\mu$, and the second less than $\mu$, which means that the confidence interval actually contains $\mu$:
+<<eval=FALSE>>=
+
+mean((ci[,1] > mu) & (mu < ci[,2]))
+@
+
+\end{document}
