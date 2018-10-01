@@ -1,0 +1,56 @@
+\documentclass{article}
+
+\begin{document}
+\section*{Comparing two normal population means}
+In this program, we assume that we have samples from an experiment to compare two treatments.  We will suppose that the available subjects were randomly assigned to two groups.  The first group received treatment 1, the second treatment 2.
+\par\vspace{0.3 cm}
+Our data generating process might be characterized as:
+\[
+y_{ij} = \mu_i + e_{ij},\quad i=1,2\quad j=1,2,\ldots,n_i 
+\]
+where the $e_{ij}$ values are all independent and normally distributed with a mean of zero and a standard deviation of $\sigma_e$.
+\par\vspace{0.3 cm}
+Described as a process, this would be:
+\begin{itemize}
+\item Start with $\mu_1$ if the subject is in group 1, $\mu_2$ otherwise.
+\item Add a random noise element $e_{ij}$
+\item The $e_{ij}$ values are independent, identically distributed $N(0,\sigma_e)$ normal random variables.
+\end{itemize}
+
+\par\vspace{0.3 cm}
+
+Read the data from a \texttt{.csv} file and show the structure of the resulting dataframe:
+
+<<>>=                                      #standard setup for Stan
+df = read.csv("two_sample_t_test.csv")
+str(df)
+@
+
+Now split the data into two vectors, one for each group, by the value of \texttt{tx}:
+
+<<eval=FALSE>>=
+y1 = df[df$tx == 1,]    #select tx 1 only.  Don't forget the comma!
+y2 = df[df$tx == 2,]    #select tx 2 only.  Don't forget the comma here either.
+
+str(y1)                 #see what we have for treatment 1
+
+str(y2)                 #see what we have for treatment 2
+@
+
+Produce a boxplot to check for outliers and get a sense of how the $y$ values in the two treatment groups compare.
+
+<<eval=FALSE>>=
+boxplot(df$y~df$tx)     #boxplot of y by treatment
+@
+Now run the t.test routine
+
+
+<<eval=FALSE>>=
+t.test(y1,y=y2)
+@
+
+
+<<>>=
+Sys.info()[["user"]]
+@
+\end{document}
