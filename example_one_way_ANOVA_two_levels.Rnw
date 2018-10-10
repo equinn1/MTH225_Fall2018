@@ -26,17 +26,22 @@ Read the data:
 
 <<>>=
 df  = read.csv("epa.csv")
+
+str(df)
+@
+
+<<eval=FALSE>>=
 dfh = df[df$C.H=='H',]     #select just highway.  Don't forget the comma before the closing ]
 
 CT = dfh$car.truck         #pick out car.truck and display its structure         
 str(CT)
-
-mpg = dfh$mpg              #get miles per gallon
 @
 
-Check out the data with a boxplot
+Check out the mpg data with a boxplot
 
-<<>>=
+<<eval=FALSE>>=
+mpg = dfh$mpg             #miles per gallon
+
 boxplot(mpg~CT)
 @
 
@@ -44,7 +49,7 @@ Now run the one-way ANOVA.
 \par\vspace{0.3 cm}
 As long as CT is a factor, R will determine the number of levels.
 \par\vspace{0.3 cm}
-<<>>=
+<<eval=FALSE>>=
 aov1 = aov(mpg ~ CT)
 
 summary(aov1)
@@ -60,7 +65,7 @@ so it is very unlikely that this data was generated from a dataset where the mea
 \par\vspace{0.3 cm}
 Like any linear model, this one has fitted values.  We can examine them with a boxplot:
 
-<<>>=
+<<eval=FALSE>>=
 boxplot(aov1$fitted.values~CT)
 @
 
@@ -68,13 +73,13 @@ The fitted values in any one-way ANOVA are the means for the levels:
 \par\vspace{0.3 cm}
 Compute the means of mpg by level of CT:
 
-<<>>=
+<<eval=FALSE>>=
 tapply(mpg,CT,mean)
 @
 
 These can be obtained from the coefficients, though the presentation can be confusing:
 
-<<>>=
+<<eval=FALSE>>=
 aov1$coefficients
 @
 
